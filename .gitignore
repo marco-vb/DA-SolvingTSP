@@ -2,6 +2,9 @@
 .idea/
 cmake-build-debug/
 
+# Heavy data
+csv/
+
 # Prerequisites
 *.d
 
