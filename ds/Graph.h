@@ -13,6 +13,7 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef pair<int, int> ii;
+typedef pair<double, int> di;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<double> vd;
@@ -20,14 +21,16 @@ typedef vector<vd> vvd;
 
 
 struct Edge {
-    int src, dest;
+    int dest;
     double weight;
+    bool in_mst = false;
 };
 
 struct Node {
     int id;
     bool visited;
     list<Edge> adj;
+    double dist = INF;
 };
 
 class Graph {
@@ -38,15 +41,16 @@ private:
 
 public:
     Graph();
-    Graph(int V);
+    explicit Graph(int V);
     void addEdge(int src, int dest, double weight = 1);
     double tsp_exact();
-    double tsp_exact(int src);
     double tsp_approx_triangular();
-    double tsp_approx_triangular(int src);
 
 protected:
     double tsp_exact(int pos, ull mask, double **memo);
+    double tsp_approx_triangular(int pos);
+    void build_mst(int pos, vi& path);
+    void pre_order(int pos, vi& path);
 };
 
 

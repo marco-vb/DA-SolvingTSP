@@ -2,7 +2,7 @@
 
 #include "ds/Graph.h"
 
-void readGraph(Graph &g, const string &filename) {
+void readToyGraph(Graph &g, const string &filename) {
     ifstream input(filename);
     int V; input >> V; input.ignore();
     g = Graph(V);
@@ -22,7 +22,7 @@ void readGraph(Graph &g, const string &filename) {
 
 int main() {
     Graph g;
-    readGraph(g, "../csv/Toy-Graphs/shipping.csv");
+    readToyGraph(g, "../csv/Toy-Graphs/shipping.csv");
     cout << g.tsp_exact() << endl;
     return 0;
 }
