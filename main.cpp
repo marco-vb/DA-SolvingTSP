@@ -31,8 +31,8 @@ int main()
 	readToyGraph(g1, "../csv/Toy-Graphs/shipping.csv");
 	readToyGraph(g2, "../csv/Toy-Graphs/stadiums.csv");
 	readToyGraph(g3, "../csv/Toy-Graphs/tourism.csv");
-	cout << "Shipping: " << g1.tsp_exact() << endl;
-	cout << "Stadiums: " << g2.tsp_exact() << endl;
-	cout << "Tourism: " << g3.tsp_exact() << endl;
+	cout << "Shipping:\n" << g1.tsp_exact() << endl << g1.tsp_approx_triangular() << endl;
+//	cout << "Stadiums: " << g2.tsp_approx_triangular() << endl;
+//	cout << "Tourism: " << g3.tsp_approx_triangular() << endl;
 	return 0;
 }
