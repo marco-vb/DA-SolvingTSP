@@ -40,6 +40,7 @@ public:
 	bool processing = false;
 	unsigned int indegree;
 	double dist = 0;
+	double lat, lon;
 	Edge *path = nullptr;
 	std::vector<Edge *> incoming;
 	int queueIndex = 0;

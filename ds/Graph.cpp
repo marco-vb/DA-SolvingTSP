@@ -77,7 +77,7 @@ double Graph::tsp_approx_triangular(int pos)
 	pre_order(pos, path);
 
 	double ans = 0;
-	for (int i = 0; i < V - 1 && i < (int) path.size() - 1; i++) ans += dist[path[i]][path[i + 1]];
+	for (int i = 0; i < V - 1; i++) ans += dist[path[i]][path[i + 1]];
 	ans += dist[path[path.back()]][path[0]];
 
 	return ans;
@@ -114,7 +114,6 @@ void Graph::pre_order(int pos, vi &path)
 {
 	path.push_back(pos);
 	auto v = nodes[pos];
-	cout << pos << " ";
 	for (auto &edge: v->getAdj()) {
 		auto w = edge->getDest();
 		if (w->getPath() == edge) {
