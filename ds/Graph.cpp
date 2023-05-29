@@ -3,15 +3,12 @@
 
 #include "Graph.h"
 
-Graph::Graph()
+Graph::Graph(): V(0)
 {
-	this->V = 0;
-	this->nodes = vector<Node*>();
 }
 
-Graph::Graph(int V)
+Graph::Graph(int V): V(V)
 {
-	this->V = V;
 	this->dist = vvd(V, vd(V, 0));
 	this->nodes = vector<Node*>(V);
 	for (int i = 0; i < V; i++) { nodes[i] = new Node(i); }

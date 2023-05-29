@@ -1,13 +1,8 @@
-//
-// Created by marco-vb on 05-05-2023.
-//
-
 #ifndef TSP_GRAPH_H
 #define TSP_GRAPH_H
 
 #include <bits/stdc++.h>
 #include "NodeEdge.h"
-#include "Heap.h"
 
 #define INF 1e11
 
