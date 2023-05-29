@@ -7,6 +7,7 @@
 
 #include <bits/stdc++.h>
 #include "NodeEdge.h"
+#include "Heap.h"
 
 #define INF 1e11
 
@@ -25,21 +26,16 @@ class Graph
 public:
 	Graph();
 	explicit Graph(int V);
-	Node *findNode(const int &id) const;
 	void addEdge(int, int, double);
-	bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
-	int getNumNode() const;
-	vector<Node *> getNodeSet() const;
 	double tsp_exact();
 	double tsp_approx_triangular();
+	double tsp_exact(int pos, ull mask, double **memo);
+	double tsp_approx_triangular(int pos);
+	void build_mst(int pos);
+	void pre_order(int pos, vi &path);
 
 	int V;
 	vector<Node *> nodes;
-	int findNodeIdx(const int &id) const;
-	double tsp_exact(int pos, ull mask, double** memo);
-	double tsp_approx_triangular(int pos);
-	void build_mst(int pos, vi &path);
-	void pre_order(int pos, vi &path);
 	vvd dist;
 };
 
