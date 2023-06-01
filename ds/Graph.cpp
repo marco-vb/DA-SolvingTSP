@@ -10,15 +10,15 @@ Graph::Graph(): V(0)
 Graph::Graph(int V): V(V)
 {
 	this->dist = vvd(V, vd(V, 0));
-	this->nodes = vector<Node*>(V);
-	for (int i = 0; i < V; i++) { nodes[i] = new Node(i); }
+	this->nodes = vector<TNode*>(V);
+	for (int i = 0; i < V; i++) { nodes[i] = new TNode(i); }
 }
 
 void Graph::addEdge(int src, int dest, double weight)
 {
 	auto v1 = nodes[src];
 	auto v2 = nodes[dest];
-	if (!v1 || !v2) throw invalid_argument("Node not found");
+	if (!v1 || !v2) throw invalid_argument("TNode not found");
 
 	v1->addEdge(v2, weight);
 	v2->addEdge(v1, weight);
@@ -82,7 +82,7 @@ double Graph::tsp_approx_triangular(int pos)
 
 void Graph::build_mst(int pos)
 {
-	Heap<Node> q;
+	Heap<TNode> q;
 
 	for (auto &v: nodes) {
 		v->setDist(INF);

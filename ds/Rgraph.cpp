@@ -4,6 +4,10 @@ Rnode::Rnode(int id, double lat, double lon) :
 		id(id), lat(lat), lon(lon), dist(0), visited(false)
 {}
 
+Rnode::Rnode(const Rnode &Node) :
+		id(Node.id), lat(Node.lat), lon(Node.lon), dist(Node.dist), visited(Node.visited)
+{}
+
 bool Rnode::operator<(Rnode &Node) const
 {
 	return this->dist < Node.dist;
@@ -28,6 +32,7 @@ double Rgraph::tsp_triangular()
 	vi path(V);
 	build_mst(0);
 
+	for (auto &node: nodes) { node.visited = false; }
 	int count = 0;
 	pre_order(0, path, count);
 
@@ -55,7 +60,10 @@ void Rgraph::build_mst(int pos)
 	while (!q.empty()) {
 		auto v = q.extractMin();
 		v->visited = true;
-		if (v->root) { v->root->mst_edges.insert(v); }
+		if (v->root) {
+			v->root->mst_edges.insert(v);
+			v->mst_edges.insert(v->root);
+		}
 
 		for (auto &node: nodes) {
 			if (v->id == node.id || node.visited) continue;
@@ -71,10 +79,10 @@ void Rgraph::build_mst(int pos)
 
 void Rgraph::pre_order(int pos, vi &path, int &count)
 {
+	nodes[pos].visited = true;
 	path[count++] = pos;
-	auto neighbours = nodes[pos].mst_edges;
-	for (auto &w: neighbours) {
-		pre_order(w->id, path, count);
+	for (auto &w: nodes[pos].mst_edges) {
+		if (!w->visited) { pre_order(w->id, path, count); }
 	}
 }
 
@@ -100,36 +108,23 @@ double Rgraph::dist(int i, int j)
 
 double Rgraph::tsp_christofides()
 {
-	int odd = 0;
-	vi degree(V, 0);
+	vi degree(V, 0), matching(V, -1), path;
 	build_mst(0);
 
 	for (Rnode &v: nodes) {
 		for (Rnode* w: v.mst_edges) { w->mst_edges.insert(&v); }  // make MST undirected
 	}
 
-	for (int i = 0; i < V; i++) {
-		degree[i] = (int) nodes[i].mst_edges.size();
-		if (degree[i] % 2) { odd++; }
-	}
-
-	Rgraph g(odd);
-
-	for (int i = 0; i < V; i++) {
-		if (degree[i] % 2) { g.nodes.emplace_back(i, nodes[i].lat, nodes[i].lon); }
-	}
-
-	vi matching(V, -1);
-	g.min_weight_matching(matching);
+	min_weight_matching(matching); // find min weight matching
 	overlap(matching);    // add edges from matching to MST
-	vi path;
 	euler_tour(path); // find euler tour
 
 	vi visited(V, 0);
 	visited[path[0]] = 1;
 	double ans = 0;
 
-	for (int i = 0; i < (int) path.size() - 1; i++) {
+	int i = 0, n = (int) path.size();
+	for (; i < n - 1; i++) {
 		if (!visited[path[i + 1]]) {
 			ans += dist(path[i], path[i + 1]);
 			visited[path[i + 1]] = 1;
@@ -142,44 +137,13 @@ double Rgraph::tsp_christofides()
 
 void Rgraph::min_weight_matching(vi &matches)
 {
+	for (auto &node: nodes) { node.visited = false; }
 	for (auto &node: nodes) {
-		vd distances(V, INF);
-		vi parents(V, -1);
-		vi in_queue(V, 0);
-
-		queue<int> q;
-		q.push(node.id);
-		distances[node.id] = 0;
-		in_queue[node.id] = 1;
-
-		while (!q.empty()) {
-			int u = q.front();
-			q.pop();
-			in_queue[u] = 0;
-
-			for (auto &w: nodes) {
-				if (u == w.id) continue;
-				int v = w.id;
-				double d = dist(u, v);
-
-				if (d < distances[v]) {
-					distances[v] = d;
-					parents[v] = u;
-					if (!in_queue[v]) {
-						q.push(v);
-						in_queue[v] = 1;
-					}
-				}
-			}
-		}
-
-		int v = node.id;
-		while (parents[v] != -1) {
-			int next = parents[v];
-			matches[next] = v;
-			matches[v] = next;
-			v = matches[next];
-		}
+		if (node.visited || matches[node.id] != -1) continue;
+		node.visited = true;
+		int nearest = nearest_neighbor(node.id);
+		matches[node.id] = nearest;
+		matches[nearest] = node.id;
 	}
 }
 
@@ -209,4 +173,40 @@ void Rgraph::euler_tour(vi &path)
 			s.push(w->id);
 		}
 	}
+}
+
+double Rgraph::tsp_nearest()
+{
+	for (int i = 0; i < V; i++) { nodes[i].visited = false; }
+
+	vi path(V);
+	path[0] = 0;
+	nodes[0].visited = true;
+
+	for (int i = 1; i < V; i++) {
+		int min_pos = nearest_neighbor(path[i - 1]);
+		path[i] = min_pos;
+		nodes[min_pos].visited = true;
+	}
+
+	double ans = 0;
+	for (int i = 0; i < V - 1; i++) ans += dist(path[i], path[i + 1]);
+	ans += dist(path[path.back()], path[0]);
+
+	return ans;
+}
+
+int Rgraph::nearest_neighbor(int pos)
+{
+	double min_dist = INF;
+	int min_pos = -1;
+	for (int i = 0; i < V; i++) {
+		if (pos == i || nodes[i].visited) continue;
+		double d = dist(pos, i);
+		if (d < min_dist) {
+			min_dist = d;
+			min_pos = i;
+		}
+	}
+	return min_pos;
 }

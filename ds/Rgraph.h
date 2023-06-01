@@ -11,12 +11,14 @@ public:
 	double lat, lon, dist;
 	bool visited;
 	Rnode *root = nullptr;
-	set<Rnode*, greater<>> mst_edges;
+	multiset<Rnode*, greater<>> mst_edges;
 	bool operator<(Rnode &Node) const;
 	/* This is just a trick to get the correct order in the set
 	 * This operator will order the set by increasing lat and lon */
 	bool operator>(const Rnode &Node) const;
 	Rnode(int id, double lat, double lon);
+	// copy constructor
+	Rnode(const Rnode &Node);
 };
 
 class Rgraph
@@ -29,8 +31,10 @@ public:
 	void min_weight_matching(vi& matches);
 	void overlap(vi& matches);
 	void euler_tour(vi& path);
+	double tsp_nearest();
 	void build_mst(int pos);
 	void pre_order(int pos, vi &path, int &count);
+	int nearest_neighbor(int pos);
 	static double haversine(double lat1, double lon1, double lat2, double lon2);
 	double dist(int i, int j);
 
