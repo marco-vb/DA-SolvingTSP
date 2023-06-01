@@ -64,45 +64,48 @@ int main()
 	Graph g1, g2, g3;
 	Rgraph r1, r2, r3;
 
-//	readToyGraph(g1, "../csv/Toy-Graphs/shipping.csv");
-//	readToyGraph(g2, "../csv/Toy-Graphs/stadiums.csv");
-//	readToyGraph(g3, "../csv/Toy-Graphs/tourism.csv");
-//	cout << "Shipping: " << g1.tsp_exact() << endl;
-//	cout << "Stadiums: " << g2.tsp_exact() << endl;
-//	cout << "Tourism: " << g3.tsp_exact() << endl;
+	cout << "Exact Algorithm:\n";
+	readToyGraph(g1, "../csv/Toy-Graphs/shipping.csv");
+	readToyGraph(g2, "../csv/Toy-Graphs/stadiums.csv");
+	readToyGraph(g3, "../csv/Toy-Graphs/tourism.csv");
+	cout << "Shipping: " << g1.tsp_exact() << endl;
+	cout << "Stadiums: " << g2.tsp_exact() << endl;
+	cout << "Tourism: " << g3.tsp_exact() << endl;
 
-//	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-//	cout << "Real 1:\n" << r1.tsp_triangular() << endl;
-//	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-//	cout << "Real 2:\n" << r2.tsp_triangular() << endl;
-//	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-//	cout << "Real 3:\n" << r3.tsp_triangular() << endl;
+	cout << "My Algorithms:\n";
+	cout << "Triangular:\n";
+	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
+	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
+	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
+	clock_t start = clock();
+	cout << "Real 1:\n" << (int) r1.tsp_triangular() / 1000 << " Km" << endl;
+	cout << "Real 2:\n" << (int) r2.tsp_triangular() / 1000 << " Km" << endl;
+	cout << "Real 3:\n" << (int) r3.tsp_triangular() / 1000 << " Km" << endl;
+	clock_t end = clock();
+	cout << "Time: " << (double)(end - start) / CLOCKS_PER_SEC << endl;
 
-//	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-//	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-//	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-//	cout << "Real 1:\n" << r1.tsp_triangular() << endl;
-//	cout << "Real 2:\n" << r2.tsp_triangular() << endl;
-//	cout << "Real 3:\n" << r3.tsp_triangular() << endl;
+	cout << "My Heuristics:\n";
+	cout << "Christofides:\n";
+	start = clock();
+	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
+	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
+	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
+	cout << "Real 1:\n" << (int) r1.tsp_christofides() / 1000 << " Km" << endl;
+	cout << "Real 2:\n" << (int) r2.tsp_christofides() / 1000 << " Km" << endl;
+	cout << "Real 3:\n" << (int) r3.tsp_christofides() / 1000 << " Km" << endl;
+	end = clock();
+	cout << "Time: " << (double)(end - start) / CLOCKS_PER_SEC << endl;
 
-//	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-//	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-//	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-//	cout << "Real 1:\n" << r1.tsp_nearest() << endl;
-//	cout << "Real 2:\n" << r2.tsp_nearest() << endl;
-//	cout << "Real 3:\n" << r3.tsp_nearest() << endl;
-
-//	cout << "My Heuristics:\n";
-//	cout << "Christofides:\n";
-//	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-//	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-//	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-//	clock_t start = clock();
-//	cout << "Real 1:\n" << r1.tsp_christofides() << endl;
-//	cout << "Real 2:\n" << r2.tsp_christofides() << endl;
-//	cout << "Real 3:\n" << r3.tsp_christofides() << endl;
-//	clock_t end = clock();
-//	cout << "Time: " << (double)(end - start) / CLOCKS_PER_SEC << endl;
+	cout << "Nearest Neighbor:\n";
+	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
+	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
+	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
+	start = clock();
+	cout << "Real 1:\n" << (int) r1.tsp_nearest() / 1000 << " Km" << endl;
+	cout << "Real 2:\n" << (int) r2.tsp_nearest() / 1000 << " Km" << endl;
+	cout << "Real 3:\n" << (int) r3.tsp_nearest() / 1000 << " Km" << endl;
+	end = clock();
+	cout << "Time: " << (double)(end - start) / CLOCKS_PER_SEC << endl;
 
 	return 0;
 }

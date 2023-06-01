@@ -112,7 +112,9 @@ double Rgraph::tsp_christofides()
 	build_mst(0);
 
 	for (Rnode &v: nodes) {
-		for (Rnode* w: v.mst_edges) { w->mst_edges.insert(&v); }  // make MST undirected
+		degree[v.id] = (int) v.mst_edges.size();
+		if (degree[v.id] % 2) { v.visited = false; }
+		else { v.visited = true; }
 	}
 
 	min_weight_matching(matching); // find min weight matching
@@ -137,13 +139,13 @@ double Rgraph::tsp_christofides()
 
 void Rgraph::min_weight_matching(vi &matches)
 {
-	for (auto &node: nodes) { node.visited = false; }
 	for (auto &node: nodes) {
 		if (node.visited || matches[node.id] != -1) continue;
-		node.visited = true;
 		int nearest = nearest_neighbor(node.id);
 		matches[node.id] = nearest;
 		matches[nearest] = node.id;
+		node.visited = true;
+		nodes[nearest].visited = true;
 	}
 }
 
@@ -157,22 +159,25 @@ void Rgraph::overlap(vi &matches)
 
 void Rgraph::euler_tour(vi &path)
 {
-	vi visited(V, 0);
-	stack<int> s;
-	s.push(0);
+	std::stack<int> stack;
+	stack.push(0);
 
-	while (!s.empty()) {
-		int u = s.top();
-		s.pop();
+	while (!stack.empty()) {
+		int u = stack.top();
 
-		if (visited[u]) continue;
-		visited[u] = 1;
-		path.push_back(u);
-
-		for (Rnode* w: nodes[u].mst_edges) {
-			s.push(w->id);
+		if (nodes[u].mst_edges.empty()) {
+			stack.pop();
+			path.push_back(u);
+		} else {
+			Rnode* v = *nodes[u].mst_edges.begin();
+			nodes[u].mst_edges.erase(v);
+			v->mst_edges.erase(&nodes[u]);
+			stack.push(v->id);
 		}
 	}
+
+	// Reverse the tour to get the correct order
+	std::reverse(path.begin(), path.end());
 }
 
 double Rgraph::tsp_nearest()
