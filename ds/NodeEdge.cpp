@@ -1,9 +1,9 @@
 #include "NodeEdge.h"
 
-Node::Node(int id) : id(id), indegree(0)
+TNode::TNode(int id) : id(id), indegree(0)
 {}
 
-Edge *Node::addEdge(Node *d, double w)
+Edge *TNode::addEdge(TNode *d, double w)
 {
 	auto newEdge = new Edge(this, d, w);
 	adj.push_back(newEdge);
@@ -13,13 +13,13 @@ Edge *Node::addEdge(Node *d, double w)
 	return newEdge;
 }
 
-bool Node::removeEdge(int destID)
+bool TNode::removeEdge(int destID)
 {
 	bool removedEdge = false;
 	auto it = adj.begin();
 	while (it != adj.end()) {
 		Edge *edge = *it;
-		Node *dest = edge->getDest();
+		TNode *dest = edge->getDest();
 		if (dest->getId() == destID) {
 			it = adj.erase(it);
 			auto it2 = dest->incoming.begin();
@@ -39,85 +39,85 @@ bool Node::removeEdge(int destID)
 	return removedEdge;
 }
 
-bool Node::operator<(Node &Node) const
+bool TNode::operator<(TNode &Node) const
 {
 	return this->dist < Node.dist;
 }
 
-int Node::getId() const
+int TNode::getId() const
 {
 	return this->id;
 }
 
-std::vector<Edge *> Node::getAdj() const
+std::vector<Edge *> TNode::getAdj() const
 {
 	return this->adj;
 }
 
-bool Node::isVisited() const
+bool TNode::isVisited() const
 {
 	return this->visited;
 }
 
-bool Node::isProcessing() const
+bool TNode::isProcessing() const
 {
 	return this->processing;
 }
 
-unsigned int Node::getIndegree() const
+unsigned int TNode::getIndegree() const
 {
 	return this->indegree;
 }
 
-double Node::getDist() const
+double TNode::getDist() const
 {
 	return this->dist;
 }
 
-Edge *Node::getPath() const
+Edge *TNode::getPath() const
 {
 	return this->path;
 }
 
-std::vector<Edge *> Node::getIncoming() const
+std::vector<Edge *> TNode::getIncoming() const
 {
 	return this->incoming;
 }
 
-void Node::setId(int id)
+void TNode::setId(int id)
 {
 	this->id = id;
 }
 
-void Node::setVisited(bool visited)
+void TNode::setVisited(bool visited)
 {
 	this->visited = visited;
 }
 
-void Node::setProcesssing(bool proc)
+void TNode::setProcesssing(bool proc)
 {
 	this->processing = proc;
 }
 
-void Node::setIndegree(unsigned int in)
+void TNode::setIndegree(unsigned int in)
 {
 	this->indegree = in;
 }
 
-void Node::setDist(double d)
+void TNode::setDist(double d)
 {
 	this->dist = d;
 }
 
-void Node::setPath(Edge *p)
+void TNode::setPath(Edge *p)
 {
 	this->path = p;
 }
 
-Edge::Edge(Node *orig, Node *dest, double w) : orig(orig), dest(dest), weight(w)
+Edge::Edge(TNode *orig, TNode *dest, double w) : orig(orig), dest(dest), weight(w)
 {}
 
-Node *Edge::getDest() const
+TNode *Edge::getDest() const
 {
 	return this->dest;
 }
@@ -127,7 +127,7 @@ double Edge::getWeight() const
 	return this->weight;
 }
 
-Node *Edge::getOrig() const
+TNode *Edge::getOrig() const
 {
 	return this->orig;
 }

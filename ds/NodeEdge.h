@@ -10,11 +10,11 @@ using namespace std;
 
 class Edge;
 
-class Node
+class TNode
 {
 public:
-	explicit Node(int id);
-	bool operator<(Node &Node) const;
+	explicit TNode(int id);
+	bool operator<(TNode &Node) const;
 	int getId() const;
 	std::vector<Edge *> getAdj() const;
 	bool isVisited() const;
@@ -29,10 +29,10 @@ public:
 	void setIndegree(unsigned int in);
 	void setDist(double d);
 	void setPath(Edge *p);
-	Edge *addEdge(Node *dest, double w);
+	Edge *addEdge(TNode *dest, double w);
 	bool removeEdge(int destID);
 
-	friend class Heap<Node>;
+	friend class Heap<TNode>;
 
 	int id;
 	std::vector<Edge *> adj;
@@ -49,19 +49,19 @@ public:
 class Edge
 {
 public:
-	Edge(Node *orig, Node *dest, double w);
-	Node *getDest() const;
+	Edge(TNode *orig, TNode *dest, double w);
+	TNode *getDest() const;
 	double getWeight() const;
 	bool isSelected() const;
-	Node *getOrig() const;
+	TNode *getOrig() const;
 	Edge *getReverse() const;
 	void setSelected(bool selected);
 	void setReverse(Edge *rev);
 
-	Node *dest;
+	TNode *dest;
 	double weight;
 	bool selected = false;
-	Node *orig;
+	TNode *orig;
 	Edge *reverse = nullptr;
 };
 

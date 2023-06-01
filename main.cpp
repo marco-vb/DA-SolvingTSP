@@ -63,20 +63,26 @@ int main()
 {
 	Graph g1, g2, g3;
 	Rgraph r1, r2, r3;
-	readToyGraph(g1, "../csv/Toy-Graphs/shipping.csv");
-	readToyGraph(g2, "../csv/Toy-Graphs/stadiums.csv");
-	readToyGraph(g3, "../csv/Toy-Graphs/tourism.csv");
-	cout << "Shipping: " << g1.tsp_exact() << endl;
-	cout << "Stadiums: " << g2.tsp_exact() << endl;
-	cout << "Tourism: " << g3.tsp_exact() << endl;
+//	readToyGraph(g1, "../csv/Toy-Graphs/shipping.csv");
+//	readToyGraph(g2, "../csv/Toy-Graphs/stadiums.csv");
+//	readToyGraph(g3, "../csv/Toy-Graphs/tourism.csv");
+//	cout << "Shipping: " << g1.tsp_exact() << endl;
+//	cout << "Stadiums: " << g2.tsp_exact() << endl;
+//	cout << "Tourism: " << g3.tsp_exact() << endl;
 
-//	cout << Rgraph::haversine(-47.84922953140144, -15.674299650218574, -47.65425242159492, -15.601081676403954) << endl;
+//	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
+//	cout << "Real 1:\n" << r1.tsp_triangular() << endl;
+//	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
+//	cout << "Real 2:\n" << r2.tsp_triangular() << endl;
+//	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
+//	cout << "Real 3:\n" << r3.tsp_triangular() << endl;
+
 	readRealGraph(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-	cout << "Real 1:\n" << r1.tsp_triangular() << endl;
+	cout << "Real 1:\n" << r1.tsp_nearest() << endl;
 	readRealGraph(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-	cout << "Real 2:\n" << r2.tsp_triangular() << endl;
+	cout << "Real 2:\n" << r2.tsp_nearest() << endl;
 	readRealGraph(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-	cout << "Real 3:\n" << r3.tsp_triangular() << endl;
+	cout << "Real 3:\n" << r3.tsp_nearest() << endl;
 
 	return 0;
 }

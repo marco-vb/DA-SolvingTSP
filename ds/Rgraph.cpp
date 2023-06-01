@@ -4,6 +4,10 @@ Rnode::Rnode(int id, double lat, double lon) :
 		id(id), lat(lat), lon(lon), dist(0), visited(false)
 {}
 
+Rnode::Rnode(const Rnode &Node) :
+		id(Node.id), lat(Node.lat), lon(Node.lon), dist(Node.dist), visited(Node.visited)
+{}
+
 bool Rnode::operator<(Rnode &Node) const
 {
 	return this->dist < Node.dist;
@@ -96,4 +100,40 @@ double Rgraph::haversine(double lat1, double lon1, double lat2, double lon2)
 double Rgraph::dist(int i, int j)
 {
 	return haversine(nodes[i].lat, nodes[i].lon, nodes[j].lat, nodes[j].lon);
+}
+
+double Rgraph::tsp_nearest()
+{
+	for (int i = 0; i < V; i++) { nodes[i].visited = false; }
+
+	vi path(V);
+	path[0] = 0;
+	nodes[0].visited = true;
+
+	for (int i = 1; i < V; i++) {
+		int min_pos = nearest_neighbor(path[i - 1]);
+		path[i] = min_pos;
+		nodes[min_pos].visited = true;
+	}
+
+	double ans = 0;
+	for (int i = 0; i < V - 1; i++) ans += dist(path[i], path[i + 1]);
+	ans += dist(path[path.back()], path[0]);
+
+	return ans;
+}
+
+int Rgraph::nearest_neighbor(int pos)
+{
+	double min_dist = INF;
+	int min_pos = -1;
+	for (int i = 0; i < V; i++) {
+		if (pos == i || nodes[i].visited) continue;
+		double d = dist(pos, i);
+		if (d < min_dist) {
+			min_dist = d;
+			min_pos = i;
+		}
+	}
+	return min_pos;
 }

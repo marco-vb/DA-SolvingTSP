@@ -30,7 +30,7 @@ public:
 	void pre_order(int pos, vi &path);
 
 	int V;
-	vector<Node *> nodes;
+	vector<TNode *> nodes;
 	vvd dist;
 };
 
