@@ -11,7 +11,7 @@ public:
 	double lat, lon, dist;
 	bool visited;
 	Rnode *root = nullptr;
-	set<Rnode, greater<>> mst_edges;
+	set<Rnode*, greater<>> mst_edges;
 	bool operator<(Rnode &Node) const;
 	/* This is just a trick to get the correct order in the set
 	 * This operator will order the set by increasing lat and lon */
@@ -25,6 +25,10 @@ public:
 	Rgraph();
 	explicit Rgraph(int V);
 	double tsp_triangular();
+	double tsp_christofides();
+	void min_weight_matching(vi& matches);
+	void overlap(vi& matches);
+	void euler_tour(vi& path);
 	void build_mst(int pos);
 	void pre_order(int pos, vi &path, int &count);
 	static double haversine(double lat1, double lon1, double lat2, double lon2);
