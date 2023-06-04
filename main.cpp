@@ -1,3 +1,8 @@
+/**
+ * @file main.cpp
+ * @brief This file contains the main entry point for the TSP application.
+ */
+
 #include <bits/stdc++.h>
 #include "ds/Graph.h"
 
@@ -84,96 +89,9 @@ void ReadREdgesOnly(Graph &g, const string &edges_file, int V) {
 }
 
 int main() {
+
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-
-
-    /*Graph r1, r2, r3;
-    clock_t start, end;*/
-
-    /*cout << "Exact Algorithm:\n";
-    ReadREdgesOnly(r1, "../csv/Toy-Graphs/shipping.csv", 14);
-    ReadREdgesOnly(r2, "../csv/Toy-Graphs/stadiums.csv", 11);
-    ReadREdgesOnly(r3, "../csv/Toy-Graphs/tourism.csv", 5);
-    start = clock();
-    cout << "Shipping: " << r1.tsp_exact() << endl;
-    end = clock();
-    cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-    start = clock();
-    cout << "Stadiums: " << r2.tsp_exact() << endl;
-    end = clock();
-    cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-    start = clock();
-    cout << "Tourism: " << r3.tsp_exact() << endl;
-    end = clock();
-    cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;*/
-
-
-
-
-        /*vi files = {25, 50, 75, 100, 200, 300, 400, 500, 600, 700, 800, 900};
-        for (int n: files) {
-        Graph r, _r;
-        string edges_file = "../csv/Extra-Graphs/edges_" + to_string(n) + ".csv";
-        ReadREdgesOnly(r, edges_file, n);
-        ReadREdgesOnly(_r, edges_file, n);
-        start = clock();
-        cout << "Cristiano Ronaldo " << n << ": " << (int) r.tsp_christofides(EDGES) / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-        start = clock();
-        cout << "Triangle Chest " << n << ": " << (int) _r.tsp_triangular(EDGES) / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-        }
-
-        cout << "My Algorithms:\n";
-        cout << "Triangular:\n";
-        readRNodes(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-        readREdges(r1, "../csv/Real-World-Graphs/graph1/edges.csv");
-        readRNodes(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-        readREdges(r2, "../csv/Real-World-Graphs/graph2/edges.csv");
-        readRNodes(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-        readREdges(r3, "../csv/Real-World-Graphs/graph3/edges.csv");
-        start = clock();
-        cout << "Real 1:\n" << (int) r1.tsp_triangular(NO_EDGES) / 1000 << " Km" << endl;
-        cout << "Real 2:\n" << (int) r2.tsp_triangular(NO_EDGES) / 1000 << " Km" << endl;
-        cout << "Real 3:\n" << (int) r3.tsp_triangular(NO_EDGES) / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-
-        cout << "My Heuristics:\n";
-        cout << "Christofides:\n";
-        readRNodes(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-        readREdges(r1, "../csv/Real-World-Graphs/graph1/edges.csv");
-        readRNodes(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-        readREdges(r2, "../csv/Real-World-Graphs/graph2/edges.csv");
-        readRNodes(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-        readREdges(r3, "../csv/Real-World-Graphs/graph3/edges.csv");
-        start = clock();
-        cout << "Real 1:\n" << (int) r1.tsp_christofides(NO_EDGES) / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-        start = clock();
-        cout << "Real 2:\n" << (int) r2.tsp_christofides(NO_EDGES) / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-        start = clock();
-        cout << "Real 3:\n" << (int) r3.tsp_christofides(NO_EDGES) / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
-
-        cout << "Nearest Neighbor:\n";
-        readRNodes(r1, "../csv/Real-World-Graphs/graph1/nodes.csv");
-        readRNodes(r2, "../csv/Real-World-Graphs/graph2/nodes.csv");
-        readRNodes(r3, "../csv/Real-World-Graphs/graph3/nodes.csv");
-        start = clock();
-        cout << "Real 1:\n" << (int) r1.tsp_nearest() / 1000 << " Km" << endl;
-        cout << "Real 2:\n" << (int) r2.tsp_nearest() / 1000 << " Km" << endl;
-        cout << "Real 3:\n" << (int) r3.tsp_nearest() / 1000 << " Km" << endl;
-        end = clock();
-        cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;*/
-
 
     system("Color 0B");
     startingScreen();
