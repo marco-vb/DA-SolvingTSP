@@ -4,18 +4,23 @@
 #include <bits/stdc++.h>
 #include "Graph.h"
 
+class Redge
+{
+public:
+	Redge(int dest, double w);
+	int dest;
+	double weight;
+};
+
 class Rnode
 {
 public:
 	int id, queueIndex = 0;
 	double lat, lon, dist;
 	bool visited;
-	Rnode *root = nullptr;
-	multiset<Rnode*, greater<>> mst_edges;
+	Rnode* root = nullptr;
+	vector<Redge*> adj;
 	bool operator<(Rnode &Node) const;
-	/* This is just a trick to get the correct order in the set
-	 * This operator will order the set by increasing lat and lon */
-	bool operator>(const Rnode &Node) const;
 	Rnode(int id, double lat, double lon);
 	// copy constructor
 	Rnode(const Rnode &Node);
@@ -28,9 +33,9 @@ public:
 	explicit Rgraph(int V);
 	double tsp_triangular();
 	double tsp_christofides();
-	void min_weight_matching(vi& matches);
-	void overlap(vi& matches);
-	void euler_tour(vi& path);
+	void min_weight_matching(vi &matches);
+	void overlap(vi &matches);
+	void euler_tour(vi &path);
 	double tsp_nearest();
 	void build_mst(int pos);
 	void pre_order(int pos, vi &path, int &count);
@@ -39,7 +44,8 @@ public:
 	double dist(int i, int j);
 
 	int V;
-	vector<Rnode> nodes;
+	vector<Rnode*> nodes;
+	vector<vector<int>> mst_edges;
 };
 
 #endif //TSP_RGRAPH_H
