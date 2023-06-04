@@ -22,10 +22,12 @@ Rgraph::Rgraph(int V) : V(V)
 	mst_edges.resize(V);
 }
 
-double Rgraph::tsp_triangular()
+double Rgraph::tsp_triangular(bool edges)
 {
 	vi path(V);
-	build_mst(0);
+
+	if (edges) { build_mst(0); }
+	else { build_mst_no_edges(0); }
 
 	for (auto node: nodes) { node->visited = false; }
 	int count = 0;
@@ -111,18 +113,17 @@ double Rgraph::haversine(double lat1, double lon1, double lat2, double lon2)
 
 double Rgraph::dist(int i, int j)
 {
-//	static int count = 1;
 	for (auto &edge: nodes[i]->adj) {
 		if (edge->dest == j) { return edge->weight; }
 	}
-//	cout << "Using haversine distance for " << count++ << "th time" << endl;
 	return haversine(nodes[i]->lat, nodes[i]->lon, nodes[j]->lat, nodes[j]->lon);
 }
 
-double Rgraph::tsp_christofides()
+double Rgraph::tsp_christofides(bool edges)
 {
 	vi degree(V, 0), matching(V, -1), path;
-	build_mst(0);
+	if (edges) { build_mst(0); }
+	else { build_mst_no_edges(0); }
 
 	for (Rnode*&v: nodes) {
 		degree[v->id] = (int) mst_edges[v->id].size();
@@ -227,6 +228,48 @@ int Rgraph::nearest_neighbor(int pos)
 		}
 	}
 	return min_pos;
+}
+
+Rgraph::~Rgraph()
+{
+	for (auto &node: nodes) {
+		for (auto &edge: node->adj) { delete edge; }
+		delete node;
+	}
+}
+
+void Rgraph::build_mst_no_edges(int pos)
+{
+	Heap<Rnode> q;
+
+	for (auto v: nodes) {
+		v->dist = INF;
+		v->visited = false;
+		q.insert(v);
+	}
+
+	nodes[pos]->dist = 0;
+	q.decreaseKey(nodes[pos]);
+
+	while (!q.empty()) {
+		auto v = q.extractMin();
+		v->visited = true;
+
+		if (v->root) {
+			mst_edges[v->root->id].push_back(v->id);
+			mst_edges[v->id].push_back(v->root->id);
+		}
+
+		for (auto &node: nodes) {
+			if (node->visited || node->id == v->id) { continue; }
+			double d = dist(v->id, node->id);
+			if (d < node->dist) {
+				node->dist = d;
+				node->root = v;
+				q.decreaseKey(node);
+			}
+		}
+	}
 }
 
 Redge::Redge(int dest, double w) :

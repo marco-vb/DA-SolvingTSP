@@ -31,13 +31,15 @@ class Rgraph
 public:
 	Rgraph();
 	explicit Rgraph(int V);
-	double tsp_triangular();
-	double tsp_christofides();
+	~Rgraph();
+	double tsp_triangular(bool edges = false);
+	double tsp_christofides(bool edges = false);
 	void min_weight_matching(vi &matches);
 	void overlap(vi &matches);
 	void euler_tour(vi &path);
 	double tsp_nearest();
 	void build_mst(int pos);
+	void build_mst_no_edges(int pos);
 	void pre_order(int pos, vi &path, int &count);
 	int nearest_neighbor(int pos);
 	static double haversine(double lat1, double lon1, double lat2, double lon2);
