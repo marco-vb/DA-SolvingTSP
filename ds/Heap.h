@@ -9,6 +9,17 @@
 
 using namespace std;
 
+typedef unsigned long long ull;
+typedef long long ll;
+typedef pair<int, int> ii;
+typedef pair<double, int> di;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<double> vd;
+typedef vector<vd> vvd;
+
+#define INF 1e11
+
 template <class T>
 class Heap
 {
