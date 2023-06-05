@@ -90,9 +90,6 @@ void ReadREdgesOnly(Graph &g, const string &edges_file, int V) {
 
 int main() {
 
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     system("Color 0B");
     startingScreen();
     menu();
@@ -178,7 +175,7 @@ void menu() {
         std::cout << R"(\\                                                                           //)"
                   << std::endl;
         std::cout << "  ===========================================================================  " << std::endl;
-        wait();
+
 
         std::cout << "  > ";
         std::getline(std::cin >> std::ws, option);
@@ -243,7 +240,7 @@ void backtrakingAlgorithm() {
         std::cout << R"(\\                                                                           //)"
                   << std::endl;
         std::cout << "  ===========================================================================  " << std::endl;
-        wait();
+
 
         std::cout << "  > ";
         std::getline(std::cin >> std::ws, option);
@@ -271,6 +268,9 @@ void backtrakingAlgorithm() {
             cout << "Tourism: " << r3.tsp_exact() << endl;
             end = clock();
             cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
+
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
 
             wait();
 
@@ -327,7 +327,7 @@ void triangularAlgorithm() {
         std::cout << R"(\\                                                                           //)"
                   << std::endl;
         std::cout << "  ===========================================================================  " << std::endl;
-        wait();
+
 
         std::cout << "  > ";
         std::getline(std::cin >> std::ws, option);
@@ -360,6 +360,9 @@ void triangularAlgorithm() {
             end = clock();
             cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
 
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
+
             wait();
 
             menu();
@@ -380,6 +383,9 @@ void triangularAlgorithm() {
                 end = clock();
                 cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
             }
+
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
 
             wait();
 
@@ -435,7 +441,7 @@ void nearestNeighborAlgorithm(){
         std::cout << R"(\\                                                                           //)"
                   << std::endl;
         std::cout << "  ===========================================================================  " << std::endl;
-        wait();
+
 
         std::cout << "  > ";
         std::getline(std::cin >> std::ws, option);
@@ -468,6 +474,10 @@ void nearestNeighborAlgorithm(){
             end = clock();
             cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
 
+
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
+
             wait();
 
             menu();
@@ -488,6 +498,9 @@ void nearestNeighborAlgorithm(){
                 end = clock();
                 cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
             }
+
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
 
             wait();
 
@@ -545,7 +558,7 @@ void christofidesAlgorithm(){
         std::cout << R"(\\                                                                           //)"
                   << std::endl;
         std::cout << "  ===========================================================================  " << std::endl;
-        wait();
+
 
         std::cout << "  > ";
         std::getline(std::cin >> std::ws, option);
@@ -578,6 +591,9 @@ void christofidesAlgorithm(){
             end = clock();
             cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
 
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
+
             wait();
 
             menu();
@@ -598,6 +614,9 @@ void christofidesAlgorithm(){
                 end = clock();
                 cout << "Time: " << (double) (end - start) / CLOCKS_PER_SEC << endl;
             }
+
+            cout << endl;
+            cout << "Press Enter to Continue..." << endl;
 
             wait();
 
@@ -623,6 +642,5 @@ void clearScreen() {
 }
 
 void wait() {
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin.get();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); std::cin.get();
 }
